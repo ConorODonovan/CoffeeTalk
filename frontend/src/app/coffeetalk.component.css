@@ -9,26 +9,20 @@
 	justify-content: center;
 }
 .add-dialog {
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+	background: var(--coffee-cream);
+	border-radius: var(--coffee-radius);
+	box-shadow: var(--coffee-shadow);
 	padding: 24px 20px 16px 20px;
 	min-width: 260px;
 	max-width: 90vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	font-family: var(--coffee-font);
 }
-.add-dialog h3 {
-	margin-top: 0;
-	margin-bottom: 16px;
-}
-.add-dialog input[type="file"] {
-	margin-bottom: 12px;
-}
+
+/* Input styles */
 .add-dialog input[type="text"] {
-	margin-bottom: 12px;
-	padding: 6px 10px;
 	border: 1px solid #ccc;
 	border-radius: 6px;
 	width: 90%;
@@ -46,8 +40,8 @@
 	padding: 6px 18px;
 	border: none;
 	border-radius: 6px;
-	background: #a0522d;
-	color: #fff;
+	background: var(--coffee-accent);
+	color: var(--coffee-cream);
 	font-size: 1em;
 	cursor: pointer;
 	transition: background 0.2s;
@@ -64,10 +58,10 @@
 	width: 50vw;
 	min-width: 160px;
 	max-width: 320px;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-	border: 1px solid #d7ccc8;
+	background: var(--coffee-cream);
+	border-radius: var(--coffee-radius);
+	box-shadow: var(--coffee-shadow);
+	border: 1px solid var(--coffee-light);
 	z-index: 3001;
 	padding: 8px 0;
 	display: flex;
@@ -82,7 +76,7 @@
 	border: none;
 	width: 100%;
 	font-size: 1rem;
-	color: #4B2E05;
+	color: var(--coffee-text);
 	cursor: pointer;
 	transition: background 0.2s;
 }
@@ -101,18 +95,61 @@ header.app-header {
 	width: 100vw;
 	z-index: 100;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-	background: linear-gradient(90deg, #6F4E37 0%, #A0522D 100%);
+	background: linear-gradient(90deg, #2d1806 0%, #4b2e05 100%);
 }
 
 .header-toolbar {
-	min-height: 64px;
+	min-height: 72px;
 	background: transparent;
-	color: #fff;
+	color: #ffe7c2;
+	display: flex;
+	align-items: center;
+	font-size: 2.1rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	line-height: 1.2;
+	padding-top: 12px;
+}
+.header-toolbar span {
+	font-size: 2.1rem;
+	font-weight: 600;
+	line-height: 1.2;
+	display: flex;
+	align-items: center;
+	font-variant: small-caps;
+	letter-spacing: 0.08em;
+}
+
+.header-toolbar span::first-letter {
+	font-size: 2.5rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+.header-toolbar .mat-icon {
+	font-size: 2.4rem !important;
+	height: 2.4rem !important;
+	width: 2.4rem !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.header-toolbar button[mat-icon-button] {
+	height: 48px;
+	width: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header-toolbar .mat-icon, .header-toolbar button, .header-toolbar span {
+	color: #ffe7c2 !important;
+	fill: #ffe7c2 !important;
 }
 
 .main-content {
 	padding: 16px;
 	margin-top: 64px; /* Height of the toolbar */
+	background: none !important;
 }
 
 .coffee-grid {
@@ -121,11 +158,12 @@ header.app-header {
 	gap: 16px;
 	width: 100%;
 	box-sizing: border-box;
+	background: none !important;
 }
 
 .coffee-brand {
 	font-size: 0.95em;
-	color: #7B3F00;
+	color: var(--coffee-accent);
 	font-weight: 500;
 	margin-bottom: 2px;
 }
@@ -133,10 +171,14 @@ header.app-header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-	padding: 12px;
+	background: rgba(255, 248, 240, 0.35); /* more transparent glass effect */
+	border-radius: 28px;
+	box-shadow: 0 12px 32px -8px rgba(111, 78, 55, 0.22), 0 4px 16px -4px rgba(0,0,0,0.13);
+	padding: 18px 14px;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1.5px solid rgba(255, 255, 255, 0.18);
+	outline: 0.5px solid rgba(127, 85, 44, 0.08);
 }
 
 .coffee-image {
@@ -153,6 +195,6 @@ header.app-header {
 }
 
 .coffee-rating mat-icon {
-	color: #a0522d;
+	color: var(--coffee-accent);
 	font-size: 20px;
 }
