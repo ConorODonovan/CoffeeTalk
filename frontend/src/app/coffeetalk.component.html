@@ -23,13 +23,13 @@
 	<div class="add-dialog" (click)="$event.stopPropagation()">
 		<h3>Add New Coffee</h3>
 		<input type="file" accept="image/*" (change)="onImageSelected($event)" />
-		<div *ngIf="newImage" class="preview-img">
-			<img [src]="newImage" alt="Preview" width="100" height="100" />
+		<div class="preview-img">
+			<img [src]="newImage ? newImage : brownPreview" alt="Preview" width="100" height="100" />
 		</div>
 		<input type="text" maxlength="10" [(ngModel)]="newBrand" placeholder="Brand (max 10 chars)" />
 		<input type="text" maxlength="10" [(ngModel)]="newName" placeholder="Name (max 10 chars)" />
 		<div class="dialog-actions">
-			<button (click)="addNewCoffee()" [disabled]="!newImage || !newBrand || !newName">Add</button>
+			<button (click)="addNewCoffee()" [disabled]="!canAddNewCoffee()">Add</button>
 			<button (click)="closeAddDialog()">Cancel</button>
 		</div>
 	</div>

@@ -12,6 +12,10 @@ export class CoffeeTalkComponent {
     newBrand = '';
     newName = '';
 
+  canAddNewCoffee(): boolean {
+    return this.newBrand.trim().length > 0 && this.newName.trim().length > 0;
+  }
+
     openAddDialog() {
       this.showAddDialog = true;
       this.showMenu = false;
@@ -63,11 +67,13 @@ export class CoffeeTalkComponent {
     }
 
     addNewCoffee() {
-      if (this.newImage && this.newBrand && this.newName) {
+      console.log('addNewCoffee called', this.newBrand, this.newName);
+      if (this.newBrand && this.newName) {
+        const imageToUse = this.newImage ? this.newImage : this.generateBrownImage();
         this.coffeeItems.unshift({
-          image: this.newImage!,
-          brand: this.newBrand!,
-          name: this.newName!,
+          image: imageToUse,
+          brand: this.newBrand,
+          name: this.newName,
           rating: 3
         });
         this.closeAddDialog();
