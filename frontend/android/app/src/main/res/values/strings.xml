@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">coffeetalk-frontend</string>
+    <string name="title_activity_main">coffeetalk-frontend</string>
+    <string name="package_name">com.coffeetalk.app</string>
+    <string name="custom_url_scheme">com.coffeetalk.app</string>
+</resources>
