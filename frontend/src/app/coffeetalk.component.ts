@@ -18,6 +18,10 @@ export class CoffeeTalkComponent implements OnInit {
     newNotes = '';
     newRating = 3;
 
+  canAddNewCoffee(): boolean {
+    return this.newBrand.trim().length > 0 && this.newName.trim().length > 0;
+  }
+
     openAddDialog() {
       this.showAddDialog = true;
       this.showMenu = false;
@@ -68,17 +72,16 @@ export class CoffeeTalkComponent implements OnInit {
       img.src = dataUrl;
     }
 
-    async addNewCoffee() {
+    addNewCoffee() {
+      console.log('addNewCoffee called', this.newBrand, this.newName);
       if (this.newBrand && this.newName) {
-        const now = new Date();
-        const item: CoffeeItem = {
-          brand: this.newBrand!,
-          name: this.newName!,
-          image: this.newImage || '',
-          brown: !this.newImage ? this.randomBrown() : '',
-          timestamp: now.toISOString()
-        };
-        await this.coffeeItemService.add(item);
+        const imageToUse = this.newImage ? this.newImage : this.generateBrownImage();
+        this.coffeeItems.unshift({
+          image: imageToUse,
+          brand: this.newBrand,
+          name: this.newName,
+          rating: 3
+        });
         this.closeAddDialog();
       }
     }

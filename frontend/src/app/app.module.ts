@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoffeeTalkComponent } from './coffeetalk.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule,
     FormsModule
   ],
   providers: [],
