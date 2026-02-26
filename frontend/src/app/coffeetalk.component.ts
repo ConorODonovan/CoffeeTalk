@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CoffeeItemService, CoffeeItem } from './coffee-item.service';
 
 @Component({
   selector: 'coffeetalk-root',
   templateUrl: './coffeetalk.component.html',
   styleUrls: ['./coffeetalk.component.css']
 })
-export class CoffeeTalkComponent {
+export class CoffeeTalkComponent implements OnInit {
     // For Add New dialog
     showAddDialog = false;
     newImage: string | null = null;
     newBrand = '';
     newName = '';
+    newType = '';
+    newCountryOfOrigin = '';
+    newBeanVariety = '';
+    newNotes = '';
+    newRating = 3;
 
     openAddDialog() {
       this.showAddDialog = true;
@@ -62,26 +68,24 @@ export class CoffeeTalkComponent {
       img.src = dataUrl;
     }
 
-    addNewCoffee() {
-      if (this.newImage && this.newBrand && this.newName) {
-        this.coffeeItems.unshift({
-          image: this.newImage!,
+    async addNewCoffee() {
+      if (this.newBrand && this.newName) {
+        const now = new Date();
+        const item: CoffeeItem = {
           brand: this.newBrand!,
           name: this.newName!,
-          rating: 3
-        });
+          image: this.newImage || '',
+          brown: !this.newImage ? this.randomBrown() : '',
+          timestamp: now.toISOString()
+        };
+        await this.coffeeItemService.add(item);
         this.closeAddDialog();
       }
     }
   title = 'Coffee Talk';
   showMenu = false;
 
-  coffeeItems: Array<{
-    image: string; // base64 jpeg
-    brand: string;
-    name: string;
-    rating: number;
-  }> = [];
+  coffeeItems: CoffeeItem[] = [];
 
   private randomBrands = [
     'Mocha Bros', 'Latte Co', 'Espresso Express', 'Cappuccino House', 'Americano Ltd',
@@ -94,15 +98,12 @@ export class CoffeeTalkComponent {
     'Flare', 'Nova', 'Zen', 'Rush', 'Spark', 'Muse', 'Vibe', 'Chill', 'Roast', 'Drift'
   ];
 
-  constructor() {
-    for (let i = 0; i < 16; i++) {
-      this.coffeeItems.push({
-        image: this.generateBrownImage(),
-        brand: this.randomBrand(),
-        name: this.randomName(),
-        rating: this.randomRating()
-      });
-    }
+  constructor(private coffeeItemService: CoffeeItemService) {}
+
+  ngOnInit() {
+    this.coffeeItemService.getAll().subscribe(items => {
+      this.coffeeItems = items;
+    });
   }
 
   toggleMenu() {
@@ -147,6 +148,6 @@ export class CoffeeTalkComponent {
   }
 
   getStars(rating: number): boolean[] {
-    return Array(5).fill(false).map((_, i) => i < rating);
+    return Array(5).fill(false).map((_, i) => i < (rating || 0));
   }
 }
