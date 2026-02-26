@@ -76,12 +76,14 @@ export class CoffeeTalkComponent implements OnInit {
       console.log('addNewCoffee called', this.newBrand, this.newName);
       if (this.newBrand && this.newName) {
         const imageToUse = this.newImage ? this.newImage : this.generateBrownImage();
-        this.coffeeItems.unshift({
+        const newItem: CoffeeItem = {
           image: imageToUse,
           brand: this.newBrand,
           name: this.newName,
-          rating: 3
-        });
+          rating: 3,
+          timestamp: new Date().toISOString()
+        };
+        this.coffeeItemService.add(newItem);
         this.closeAddDialog();
       }
     }
