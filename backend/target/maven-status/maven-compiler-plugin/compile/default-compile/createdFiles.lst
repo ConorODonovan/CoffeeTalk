@@ -1,0 +1,5 @@
+com\coffeetalk\CoffeeTalkApplication.class
+com\coffeetalk\CoffeeItemRepository.class
+com\coffeetalk\CoffeeItemController.class
+com\coffeetalk\CoffeeItemService.class
+com\coffeetalk\CoffeeItem.class
