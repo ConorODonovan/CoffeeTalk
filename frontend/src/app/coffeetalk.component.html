@@ -33,7 +33,9 @@
 		<input type="text" maxlength="30" [(ngModel)]="newBeanVariety" placeholder="Bean Variety" />
 		<textarea maxlength="1024" [(ngModel)]="newNotes" placeholder="Notes"></textarea>
 		<label>Rating:
-			<input type="number" min="1" max="5" [(ngModel)]="newRating" />
+			<select [(ngModel)]="newRating">
+				<option *ngFor="let r of ratingOptions" [ngValue]="r">{{ r }}</option>
+			</select>
 		</label>
 		<div class="dialog-actions">
 			<button (click)="addNewCoffee()" [disabled]="!canAddNewCoffee()">Add</button>
@@ -51,6 +53,9 @@
 			</div>
 			<div class="coffee-brand">{{ item.brand }}</div>
 			<div class="coffee-name">{{ item.name }}</div>
+						<div class="coffee-rating">
+							  <span *ngFor="let star of getStars(item.rating * 1)">{{ star }}</span>
+						</div>
 		</div>
 	</div>
 </div>
