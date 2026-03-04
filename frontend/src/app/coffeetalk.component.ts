@@ -7,6 +7,22 @@ import { CoffeeItemService, CoffeeItem } from './coffee-item.service';
   styleUrls: ['./coffeetalk.component.css']
 })
 export class CoffeeTalkComponent implements OnInit {
+      getStars(rating: number): string[] {
+        const stars: string[] = [];
+        let r = Number(rating);
+        for (let i = 0; i < 5; i++) {
+          if (r >= 1) {
+            stars.push('★'); // full star
+            r -= 1;
+          } else if (r === 0.5) {
+            stars.push('⯨'); // half star (U+2BE8)
+            r -= 0.5;
+          } else {
+            stars.push('☆'); // empty star
+          }
+        }
+        return stars;
+      }
     // For Add New dialog
     showAddDialog = false;
     newImage: string | null = null;
@@ -16,7 +32,8 @@ export class CoffeeTalkComponent implements OnInit {
     newCountryOfOrigin = '';
     newBeanVariety = '';
     newNotes = '';
-    newRating = 3;
+    newRating: number = 3;
+    ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
   canAddNewCoffee(): boolean {
     return this.newBrand.trim().length > 0 && this.newName.trim().length > 0;
@@ -28,6 +45,7 @@ export class CoffeeTalkComponent implements OnInit {
       this.newImage = null;
       this.newBrand = '';
       this.newName = '';
+      this.newRating = 3;
     }
 
     closeAddDialog() {
@@ -35,6 +53,7 @@ export class CoffeeTalkComponent implements OnInit {
       this.newImage = null;
       this.newBrand = '';
       this.newName = '';
+      this.newRating = 3;
     }
 
     onImageSelected(event: any) {
@@ -73,14 +92,21 @@ export class CoffeeTalkComponent implements OnInit {
     }
 
     addNewCoffee() {
-      console.log('addNewCoffee called', this.newBrand, this.newName);
+      console.log('addNewCoffee called', this.newBrand, this.newName, 'newRating:', this.newRating);
       if (this.newBrand && this.newName) {
         const imageToUse = this.newImage ? this.newImage : this.generateBrownImage();
+        // Ensure rating is within allowed values
+        let validRatings = [0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5];
+        let inputRating = this.newRating !== undefined ? this.newRating : 3;
+        console.log('inputRating:', inputRating);
+        if (!validRatings.includes(inputRating)) {
+          inputRating = 3;
+        }
         const newItem: CoffeeItem = {
           image: imageToUse,
           brand: this.newBrand,
           name: this.newName,
-          rating: 3,
+          rating: inputRating,
           timestamp: new Date().toISOString()
         };
         this.coffeeItemService.add(newItem);
@@ -152,7 +178,5 @@ export class CoffeeTalkComponent implements OnInit {
     return browns[Math.floor(Math.random() * browns.length)];
   }
 
-  getStars(rating: number): boolean[] {
-    return Array(5).fill(false).map((_, i) => i < (rating || 0));
-  }
+  // ...existing code...
 }
