@@ -1,3 +1,26 @@
+/* Cabin font setup */
+@font-face {
+  font-family: 'Cabin-Regular';
+  src: url('assets/fonts/Cabin-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cabin-Bold';
+  src: url('assets/fonts/Cabin-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body, html, input, textarea, select, button {
+  font-family: 'Cabin-Regular', Arial, sans-serif !important;
+}
+
+/* Headings use Cabin-Bold */
+h1, h2, h3, h4, h5, h6, .heading, .header-toolbar span, .detail-brand, .delete-confirm-text {
+  font-family: 'Cabin-Bold', Arial, sans-serif !important;
+  font-weight: bold !important;
+}
 /* Header color override for Angular Material */
 .header-toolbar, .header-toolbar .mat-icon, .header-toolbar button, .header-toolbar span {
   color: #ffe7c2 !important;
