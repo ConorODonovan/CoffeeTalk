@@ -7,22 +7,33 @@ import { CoffeeItemService, CoffeeItem } from './coffee-item.service';
   styleUrls: ['./coffeetalk.component.css']
 })
 export class CoffeeTalkComponent implements OnInit {
-      getStars(rating: number): string[] {
-        const stars: string[] = [];
-        let r = Number(rating);
-        for (let i = 0; i < 5; i++) {
-          if (r >= 1) {
-            stars.push('★'); // full star
-            r -= 1;
-          } else if (r === 0.5) {
-            stars.push('⯨'); // half star (U+2BE8)
-            r -= 0.5;
-          } else {
-            stars.push('☆'); // empty star
-          }
-        }
-        return stars;
+  getStars(rating: number): string[] {
+    const stars: string[] = [];
+    let r = Number(rating);
+    for (let i = 0; i < 5; i++) {
+      if (r >= 1) {
+        stars.push('★'); // full star
+        r -= 1;
+      } else if (r === 0.5) {
+        stars.push('⯨'); // half star (U+2BE8)
+        r -= 0.5;
+      } else {
+        stars.push('☆'); // empty star
       }
+    }
+    return stars;
+  }
+  // Modal for item details
+  showDetailDialog = false;
+  selectedItem: CoffeeItem | null = null;
+  openDetailDialog(item: CoffeeItem) {
+    this.selectedItem = item;
+    this.showDetailDialog = true;
+  }
+  closeDetailDialog() {
+    this.showDetailDialog = false;
+    this.selectedItem = null;
+  }
     // For Add New dialog
     showAddDialog = false;
     newImage: string | null = null;
@@ -106,6 +117,10 @@ export class CoffeeTalkComponent implements OnInit {
           image: imageToUse,
           brand: this.newBrand,
           name: this.newName,
+          type: this.newType,
+          countryOfOrigin: this.newCountryOfOrigin,
+          beanVariety: this.newBeanVariety,
+          notes: this.newNotes,
           rating: inputRating,
           timestamp: new Date().toISOString()
         };
@@ -117,6 +132,7 @@ export class CoffeeTalkComponent implements OnInit {
   showMenu = false;
 
   coffeeItems: CoffeeItem[] = [];
+  // ...existing code...
 
   private randomBrands = [
     'Mocha Bros', 'Latte Co', 'Espresso Express', 'Cappuccino House', 'Americano Ltd',
