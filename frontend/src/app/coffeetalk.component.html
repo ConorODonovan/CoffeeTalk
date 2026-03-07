@@ -79,6 +79,18 @@
 				<span *ngFor="let star of getStars(selectedItem?.rating || 0)">{{ star }}</span>
 			</div>
 		</div>
+		<button class="trash-btn" (click)="openDeleteConfirm()" aria-label="Delete"><span class="trash-icon">🗑️</span></button>
+	</div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div *ngIf="showDeleteConfirm" class="delete-confirm-backdrop" (click)="closeDeleteConfirm()">
+	<div class="delete-confirm-dialog" (click)="$event.stopPropagation()">
+		<div class="delete-confirm-text">Delete this item?</div>
+		<div class="delete-confirm-actions">
+			<button class="confirm-btn" (click)="deleteSelectedItem()" aria-label="Confirm">✔️</button>
+			<button class="cancel-btn" (click)="closeDeleteConfirm()" aria-label="Cancel">❌</button>
+		</div>
 	</div>
 </div>
 <!-- Removed extra closing div to fix template error -->

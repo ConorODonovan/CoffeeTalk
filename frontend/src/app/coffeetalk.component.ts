@@ -7,6 +7,20 @@ import { CoffeeItemService, CoffeeItem } from './coffee-item.service';
   styleUrls: ['./coffeetalk.component.css']
 })
 export class CoffeeTalkComponent implements OnInit {
+    showDeleteConfirm = false;
+    openDeleteConfirm() {
+      this.showDeleteConfirm = true;
+    }
+    closeDeleteConfirm() {
+      this.showDeleteConfirm = false;
+    }
+    async deleteSelectedItem() {
+      if (this.selectedItem && this.selectedItem.id) {
+        await this.coffeeItemService.delete(this.selectedItem.id);
+        this.closeDeleteConfirm();
+        this.closeDetailDialog();
+      }
+    }
   getStars(rating: number): string[] {
     const stars: string[] = [];
     let r = Number(rating);
